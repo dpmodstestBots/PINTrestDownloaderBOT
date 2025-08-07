@@ -77,20 +77,23 @@ async def broadcast(client, message):
 
 
 from pyrogram import idle
-import signal
+import asyncio
 
 async def main():
     await app.start()
     asyncio.create_task(keep_alive())
-    print("✅ Bot is running...")
+    print("✅ DPterest bot is running...")
     await idle()
+    print("🛑 Shutting down...")
     await app.stop()
-    print("🛑 Bot stopped cleanly.")
 
 if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
     try:
-        asyncio.run(main())
+        loop.run_until_complete(main())
     except (KeyboardInterrupt, SystemExit):
         print("🚫 Bot interrupted and exiting.")
+    finally:
+        loop.close()
 
 
