@@ -80,7 +80,15 @@ async def main():
     print("Bot running...")
     await idle()
 
-from pyrogram import idle  # ✅ Correct import
+from pyrogram import idle
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    async def runner():
+        await app.start()
+        asyncio.create_task(keep_alive())  # self-pinger
+        print("Bot is running...")
+        await idle()
+        await app.stop()
+
+    asyncio.run(runner())
+
