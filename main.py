@@ -74,21 +74,23 @@ async def broadcast(client, message):
             pass
     await message.reply(f"✅ Broadcast sent to {count} users.")
 
+
+
+from pyrogram import idle
+import signal
+
 async def main():
     await app.start()
     asyncio.create_task(keep_alive())
-    print("Bot running...")
+    print("✅ Bot is running...")
     await idle()
-
-from pyrogram import idle
+    await app.stop()
+    print("🛑 Bot stopped cleanly.")
 
 if __name__ == "__main__":
-    async def runner():
-        await app.start()
-        asyncio.create_task(keep_alive())  # self-pinger
-        print("Bot is running...")
-        await idle()
-        await app.stop()
+    try:
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        print("🚫 Bot interrupted and exiting.")
 
-    asyncio.run(runner())
 
