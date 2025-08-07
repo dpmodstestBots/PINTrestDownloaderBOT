@@ -6,7 +6,14 @@ from database import add_user, users
 from keep_alive import keep_alive
 import asyncio
 
-app = Client("pinterest_bot", bot_token=BOT_TOKEN)
+
+app = Client(
+    "pinterest_bot",
+    api_id=int(os.getenv("API_ID")),
+    api_hash=os.getenv("API_HASH"),
+    bot_token=BOT_TOKEN
+)
+
 
 @app.on_message(filters.command("start"))
 async def start(client, message):
